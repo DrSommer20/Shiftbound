@@ -1,38 +1,36 @@
 using UnityEngine;
 
-public class PlayerRunState : PlayerState
+namespace Assets.Scripts.Player.StateMachine
 {
-    public PlayerRunState(PlayerController player, PlayerStateMachine stateMachine) : base(player, stateMachine)
+    public class PlayerRunState : PlayerState
     {
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-        // Später hier: player.Anim.Play("Run");
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-
-        if (player.InputX == 0f)
+        public PlayerRunState(PlayerController player, PlayerStateMachine stateMachine) : base(player, stateMachine)
         {
-            stateMachine.ChangeState(player.IdleState);
         }
-    }
 
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
+        public override void Enter()
+        {
+            base.Enter();
+            player.Anim.Play("running");
+        }
 
-        player.RB.linearVelocity = new Vector2(player.InputX * player.moveSpeed, player.RB.linearVelocity.y);
+        public override void LogicUpdate() //TODO: Implement Wall Check
+        {
+            base.LogicUpdate();
+        }
 
-        player.CheckIfShouldFlip(player.InputX);
-    }
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
 
-    public override void Exit()
-    {
-        base.Exit();
+            player.RB.linearVelocity = new Vector2(player.InputX * player.moveSpeed, player.RB.linearVelocity.y);
+
+            player.CheckIfShouldFlip(player.InputX);
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+        }
     }
 }

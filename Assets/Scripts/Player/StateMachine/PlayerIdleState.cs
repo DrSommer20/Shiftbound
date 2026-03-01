@@ -1,35 +1,34 @@
 using UnityEngine;
 
-public class PlayerIdleState : PlayerState
+namespace Assets.Scripts.Player.StateMachine
 {
-    public PlayerIdleState(PlayerController player, PlayerStateMachine stateMachine) : base(player, stateMachine)
+    public class PlayerIdleState : PlayerState
     {
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-        
-        player.RB.linearVelocity = new Vector2(0f, player.RB.linearVelocity.y);
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-        
-        if (player.InputX != 0f)
+        public PlayerIdleState(PlayerController player, PlayerStateMachine stateMachine) : base(player, stateMachine)
         {
-            stateMachine.ChangeState(player.RunState); 
         }
-    }
 
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
-    }
+        public override void Enter()
+        {
+            base.Enter();
 
-    public override void Exit()
-    {
-        base.Exit();
+            player.RB.linearVelocity = new Vector2(0f, player.RB.linearVelocity.y);
+            player.Anim.Play("idle");
+        }
+
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+        }
+
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+        }
     }
 }
