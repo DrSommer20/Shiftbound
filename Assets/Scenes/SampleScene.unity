@@ -398,7 +398,7 @@ Transform:
   m_GameObject: {fileID: 750070670}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3574,10 +3574,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveSpeed: 8
-  jumpForce: 16
+  jumpForce: 20
   coyoteTime: 0.15
   jumpBufferTime: 0.1
-  dashSpeed: 24
+  dashSpeed: 30
   dashDuration: 0.2
   dashCooldown: 1
   moveAction:
@@ -3645,6 +3645,40 @@ MonoBehaviour:
       m_Processors: 
       m_Groups: 
       m_Action: Dash
+      m_Flags: 0
+    m_Flags: 0
+  lightStrikeAction:
+    m_Name: Light Strike
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: bb22d69c-6aae-4b4b-b632-254564269efd
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 93787857-4402-4aa3-ace9-f26318c4e08d
+      m_Path: <Keyboard>/e
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Light Strike
+      m_Flags: 0
+    m_Flags: 0
+  heavyStrikeAction:
+    m_Name: Heavy Strike
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 7aa87d3b-0d55-49b8-bd9d-d9d0830b8877
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 7947c95e-2268-435b-929c-cfc337eff40a
+      m_Path: <Keyboard>/f
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Heavy Strike
       m_Flags: 0
     m_Flags: 0
   groundCheck: {fileID: 621241033}
@@ -3731,7 +3765,7 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.17, y: 0.35}
+  m_Size: {x: 0.17, y: 0.33}
   m_Direction: 0
 --- !u!1001 &3974420895244914345
 PrefabInstance:
@@ -3751,7 +3785,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6035538740905362838, guid: f9265ba592272474aae169ec935737a1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.18
       objectReference: {fileID: 0}
     - target: {fileID: 6035538740905362838, guid: f9265ba592272474aae169ec935737a1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3783,6 +3817,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6035538740905362838, guid: f9265ba592272474aae169ec935737a1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6968091641678247305, guid: f9265ba592272474aae169ec935737a1, type: 3}
+      propertyPath: m_FlipY
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

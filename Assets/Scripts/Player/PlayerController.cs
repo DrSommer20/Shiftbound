@@ -13,6 +13,8 @@ namespace Assets.Scripts.Player.StateMachine
         public PlayerJumpState JumpState { get; private set; }
         public PlayerDashState DashState { get; private set; }
         public PlayerFallState FallState { get; private set; }
+        public PlayerLightAttackState LightAttackState { get; private set; }    
+        public PlayerHeavyAttackState HeavyAttackState { get; private set; }
         #endregion
 
         #region Components
@@ -40,6 +42,8 @@ namespace Assets.Scripts.Player.StateMachine
         public InputAction moveAction;
         public InputAction jumpAction;
         public InputAction dashAction;
+        public InputAction lightStrikeAction;
+        public InputAction heavyStrikeAction;
 
         public float InputX { get; private set; }
         public bool FacingRight { get; private set; } = true;
@@ -67,6 +71,8 @@ namespace Assets.Scripts.Player.StateMachine
             JumpState = new PlayerJumpState(this, StateMachine);
             DashState = new PlayerDashState(this, StateMachine);
             FallState = new PlayerFallState(this, StateMachine);
+            LightAttackState = new PlayerLightAttackState(this, StateMachine);
+            HeavyAttackState = new PlayerHeavyAttackState(this, StateMachine);
         }
 
         private void OnEnable()
@@ -74,6 +80,8 @@ namespace Assets.Scripts.Player.StateMachine
             moveAction.Enable();
             jumpAction.Enable();
             dashAction.Enable();
+            lightStrikeAction.Enable();
+            heavyStrikeAction.Enable();
         }
 
         private void OnDisable()
@@ -81,6 +89,8 @@ namespace Assets.Scripts.Player.StateMachine
             moveAction.Disable();
             jumpAction.Disable();
             dashAction.Disable();
+            lightStrikeAction.Disable();
+            heavyStrikeAction.Disable();
         }
 
         private void Start()
@@ -121,6 +131,14 @@ namespace Assets.Scripts.Player.StateMachine
             else if (JumpBufferCounter > 0f && CoyoteTimeCounter > 0f && currentState != JumpState && jumpAction.WasPressedThisFrame())
             {
                 nextState = JumpState;
+            }
+            else if (lightStrikeAction.WasPressedThisFrame())
+            {
+                nextState = LightAttackState;
+            }
+            else if (heavyStrikeAction.WasPressedThisFrame())
+            {
+                nextState = HeavyAttackState;
             }
             else if (CheckIfGrounded() && RB.linearVelocity.y <= 0.1f)
             {
