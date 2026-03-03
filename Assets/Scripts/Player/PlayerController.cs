@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // WICHTIG: Das neue System einbinden!
+using UnityEngine.InputSystem; 
 
 namespace Assets.Scripts.Player.StateMachine
 {
@@ -111,30 +111,30 @@ namespace Assets.Scripts.Player.StateMachine
 
         private void CheckStateTransitions()
         {
-            PlayerState nextState = StateMachine.CurrentState;
+            PlayerState currentState = StateMachine.CurrentState;
+            PlayerState nextState = currentState;
 
             if (dashAction.WasPressedThisFrame() && DashCooldownTimer <= 0f)
             {
                 nextState = DashState;
             }
-            else if (JumpBufferCounter > 0f && CoyoteTimeCounter > 0f)
+            else if (JumpBufferCounter > 0f && CoyoteTimeCounter > 0f && currentState != JumpState && jumpAction.WasPressedThisFrame())
             {
                 nextState = JumpState;
             }
-            else if (CheckIfGrounded())
+            else if (CheckIfGrounded() && RB.linearVelocity.y <= 0.1f)
             {
                 if (InputX != 0f) nextState = RunState;
                 else nextState = IdleState;
             }
-            else if (!CheckIfGrounded())
+            else if (!CheckIfGrounded() && RB.linearVelocity.y < -0.1f)
             {
-                if (RB.linearVelocity.y > 0.1f) nextState = JumpState;
-                else nextState = FallState;
+                nextState = FallState;
             }
 
-            if (nextState != StateMachine.CurrentState)
+            if (nextState != currentState)
             {
-                if (StateMachine.CurrentState.IsFinished || StateMachine.CurrentState.CanBeInterrupted())
+                if ((currentState.IsFinished || currentState.CanBeInterrupted()) && nextState.IsAllowedToChangeFromState(currentState))
                 {
                     StateMachine.ChangeState(nextState);
                 }

@@ -3,8 +3,8 @@ using System.Collections;
 
 namespace Assets.Scripts.Player.StateMachine
 {
-	public class PlayerFallState: PlayerState
-	{
+    public class PlayerFallState : PlayerState
+    {
         public PlayerFallState(PlayerController player, PlayerStateMachine stateMachine) : base(player, stateMachine)
         {
         }
@@ -13,7 +13,7 @@ namespace Assets.Scripts.Player.StateMachine
         {
             base.Enter();
 
-            player.Anim.Play("fall");
+            player.Anim.Play("jump");
         }
 
         public override void LogicUpdate()

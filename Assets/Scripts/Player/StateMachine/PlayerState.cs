@@ -29,5 +29,10 @@ namespace Assets.Scripts.Player.StateMachine
         {
             return true;
         }
+
+        public virtual bool IsAllowedToChangeFromState(PlayerState state)
+        {
+            return true; 
+        }
     }
 }

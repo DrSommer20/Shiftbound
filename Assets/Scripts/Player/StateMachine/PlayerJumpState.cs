@@ -31,5 +31,11 @@ namespace Assets.Scripts.Player.StateMachine
             player.RB.linearVelocity = new Vector2(player.InputX * player.moveSpeed, player.RB.linearVelocity.y);
             player.CheckIfShouldFlip(player.InputX);
         }
+
+        public override bool IsAllowedToChangeFromState(PlayerState state)
+        {
+            if (state is PlayerFallState) return false;
+            else return base.IsAllowedToChangeFromState(state);
+        }
     }
 }

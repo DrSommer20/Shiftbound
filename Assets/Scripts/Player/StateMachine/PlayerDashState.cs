@@ -14,6 +14,8 @@ namespace Assets.Scripts.Player.StateMachine
         {
             base.Enter();
 
+            player.ConsumeJump();  // um einen Jump bei leichtem abheben zu verhindern
+
             player.RB.gravityScale = 0f;
 
             dashStartTime = Time.time;
@@ -32,6 +34,7 @@ namespace Assets.Scripts.Player.StateMachine
             if (Time.time >= dashStartTime + player.dashDuration)
             {
                 IsFinished = true;
+                Exit();
             }
         }
 
